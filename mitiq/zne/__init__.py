@@ -9,6 +9,7 @@ from mitiq.zne.zne import (
     zne_decorator,
     construct_circuits,
     combine_results,
+    visualize_fits,
 )
 from mitiq.zne import scaling
 from mitiq.zne.inference import (
