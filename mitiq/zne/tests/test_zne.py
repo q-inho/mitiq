@@ -659,13 +659,44 @@ def test_visualize_fits_returns_figure():
     exp_values = [0.5 + 0.7 * np.exp(-0.4 * x) for x in scale_factors]
     fig = visualize_fits(scale_factors, exp_values)
     assert isinstance(fig, Figure)
-    # One scatter and three fits
-    assert len(fig.axes[0].lines) == 4
+    # One scatter and four fits
+    assert len(fig.axes[0].lines) == 5
     legend_labels = [text.get_text() for text in fig.axes[0].legend().texts]
     assert legend_labels == [
         "Linear",
         "Polynomial (order=2)",
         "Exponential",
+        "Richardson",
+    ]
+
+
+def test_visualize_fits_default_exponential_threshold():
+    """Tests that the exponential fit is added when three data points 
+    are provided."""
+    scale_factors = [1.0, 2.0, 3.0]
+    exp_values = [0.5 + 0.7 * np.exp(-0.4 * x) for x in scale_factors]
+
+    fig = visualize_fits(scale_factors, exp_values)
+
+    assert isinstance(fig, Figure)
+    legend_labels = [text.get_text() for text in fig.axes[0].legend().texts]
+    assert "Exponential" in legend_labels
+
+
+def test_visualize_fits_with_ideal_value():
+    scale_factors = [1.0, 2.0, 3.0, 4.0]
+    exp_values = [0.5 + 0.7 * np.exp(-0.4 * x) for x in scale_factors]
+    fig = visualize_fits(scale_factors, exp_values, ideal_value=0.2)
+    assert isinstance(fig, Figure)
+    # One scatter, one ideal marker, and four fits
+    assert len(fig.axes[0].lines) == 6
+    legend_labels = [text.get_text() for text in fig.axes[0].legend().texts]
+    assert legend_labels == [
+        "Ideal",
+        "Linear",
+        "Polynomial (order=2)",
+        "Exponential",
+        "Richardson",
     ]
 
 
