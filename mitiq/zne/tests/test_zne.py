@@ -671,7 +671,7 @@ def test_visualize_fits_returns_figure():
 
 
 def test_visualize_fits_default_exponential_threshold():
-    """Tests that the exponential fit is added when three data points 
+    """Tests that the exponential fit is added when three data points
     are provided."""
     scale_factors = [1.0, 2.0, 3.0]
     exp_values = [0.5 + 0.7 * np.exp(-0.4 * x) for x in scale_factors]
