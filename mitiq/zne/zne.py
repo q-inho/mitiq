@@ -6,22 +6,14 @@
 """High-level zero-noise extrapolation tools."""
 
 from functools import wraps
-from typing import Any, Callable, List, Optional, Protocol, Sequence, Union
+from typing import Callable, List, Optional, Sequence, Union
 
 from mitiq import QPROGRAM, Executor, Observable, QuantumResult
 from mitiq.zne.inference import (
-    ExtrapolationResult,
     Factory,
     RichardsonFactory,
 )
 from mitiq.zne.scaling import fold_gates_at_random
-
-
-class SupportsExtrapolate(Protocol):
-    """Objects providing an ``extrapolate`` method."""
-
-    @staticmethod
-    def extrapolate(*args: Any, **kwargs: Any) -> ExtrapolationResult: ...
 
 
 def construct_circuits(

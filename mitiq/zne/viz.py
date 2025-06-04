@@ -6,7 +6,7 @@
 """Visualization utilities for zero-noise extrapolation."""
 
 import warnings
-from typing import Any, Callable, Optional, Sequence, cast
+from typing import Any, Callable, Optional, Protocol, Sequence, cast
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -15,11 +15,19 @@ from matplotlib.figure import Figure
 from mitiq.zne.inference import (
     ExpFactory,
     ExtrapolationError,
+    ExtrapolationResult,
     LinearFactory,
     PolyFactory,
     RichardsonFactory,
 )
-from mitiq.zne.zne import SupportsExtrapolate
+
+
+class SupportsExtrapolate(Protocol):
+    """Objects providing an ``extrapolate`` method."""
+
+    @staticmethod
+    def extrapolate(*args: Any, **kwargs: Any) -> ExtrapolationResult: ...
+
 
 
 def visualize_fits(
