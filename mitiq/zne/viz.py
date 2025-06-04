@@ -29,7 +29,6 @@ class SupportsExtrapolate(Protocol):
     def extrapolate(*args: Any, **kwargs: Any) -> ExtrapolationResult: ...
 
 
-
 def visualize_fits(
     scale_factors: Sequence[float],
     exp_values: Sequence[float],
